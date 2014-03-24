@@ -1,3 +1,3 @@
 #!/bin/sh
-sudo apt-get install binutils gcc
+sudo apt-get -y install binutils gcc
 make
