@@ -1,5 +1,5 @@
 #!/bin/sh
-sudo apt-get -y install binutils gcc make cmake autoconf libtool libudev-dev libusb-dev
+sudo apt-get -y install binutils gcc make cmake autotools-dev autoconf automake libtool libudev-dev libusb-1.0-0-dev
 DIR=$( cd "$( dirname "$0" )" && pwd )
 cd ${DIR}
 make
