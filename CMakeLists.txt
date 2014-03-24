@@ -45,7 +45,7 @@ include(ExternalProject)
   ExternalProject_Get_Property(hidapi install_dir)
   SET (HIDAPI_HEADER_DIR ${install_dir}/include/hidapi)
   LINK_DIRECTORIES(${install_dir}/lib)
-  SET (HIDAPI_LINK_LIBS hidapi-hidraw hidapi-libusb)
+  SET (HIDAPI_LINK_LIBS libhidapi-hidraw.a libhidapi-libusb.a udev)
 
 #find_path(HIDAPI_HEADER_DIR hidapi.h
 #	PATHS ../hidapi ../hidapi.git ${install_dir}
