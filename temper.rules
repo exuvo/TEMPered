@@ -1,0 +1,4 @@
+# TEMPer1 USB thermometer
+SUBSYSTEMS="usb", ATTRS{idVendor}=="1130", ATTRS{idProduct}=="660c", OWNER="root", GROUP="temper", MODE="0660"
+SUBSYSTEMS="usb", ATTRS{idVendor}=="0c45", ATTRS{idProduct}=="7401", OWNER="root", GROUP="temper", MODE="0660"
+SUBSYSTEMS="usb", ATTRS{idVendor}=="0c45", ATTRS{idProduct}=="7402", OWNER="root", GROUP="temper", MODE="0660"
