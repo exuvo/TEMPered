@@ -4,3 +4,7 @@ DIR=$( cd "$( dirname "$0" )" && pwd )
 cd ${DIR}
 make
 cp tempered ../
+sudo groupadd temper
+sudo cp 60-temper.rules /etc/udev/rules.d/
+#sudo udevadm control --reload-rules
+sudo udevadm trigger
