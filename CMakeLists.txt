@@ -17,7 +17,7 @@ if (NOT DEFINED CMAKE_INSTALL_LIBDIR)
 	# directory with the name GNUInstallDirs (without the extension).
 endif()
 
-option(BUILD_HIDAPI_SHARED "Build with shared version of HIDAPI" OFF)
+option(BUILD_HIDAPI_SHARED "Build with shared version of HIDAPI" ON)
 
 option(BUILD_SHARED_LIB "Build shared version of tempered library" OFF)
 option(BUILD_STATIC_LIB "Build static version of tempered library" ON)
