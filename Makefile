@@ -10,10 +10,13 @@ all: ./build/Makefile
 	mkdir -p build
 	cd build && cmake .. || true
 
-clean: distclean
-
 distclean:
 	@- rm -rf ./build
 	@- rm -rf ./tempered
 
-.PHONY: help cmake distclean
+ifeq ($(findstring distclean,$(MAKECMDGOALS)),)
+
+    $(MAKECMDGOALS): ./build/Makefile
+	@ $(MAKE) -C build $(MAKECMDGOALS)
+
+endif

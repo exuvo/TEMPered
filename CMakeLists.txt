@@ -31,11 +31,27 @@ cmake_dependent_option(
 	"BUILD_UTILITIES;BUILD_SHARED_LIB" OFF
 )
 
-find_path(HIDAPI_HEADER_DIR hidapi.h
-	PATHS ../hidapi ../hidapi.git
-	PATH_SUFFIXES hidapi
-	DOC "The location of HIDAPI's header file"
-)
+include(ExternalProject)
+  ExternalProject_Add(
+    hidapi
+#    GIT_REPOSITORY https://github.com/signal11/hidapi.git
+#    UPDATE_COMMAND ""
+    URL https://github.com/signal11/hidapi/archive/hidapi-0.8.0-rc1.tar.gz
+    BUILD_IN_SOURCE 1
+    PATCH_COMMAND <SOURCE_DIR>/bootstrap
+    CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR>
+    BUILD_COMMAND make
+  )
+  ExternalProject_Get_Property(hidapi install_dir)
+  SET (HIDAPI_HEADER_DIR ${install_dir}/include/hidapi)
+  LINK_DIRECTORIES(${install_dir}/lib)
+  SET (HIDAPI_LINK_LIBS hidapi-hidraw hidapi-libusb)
+
+#find_path(HIDAPI_HEADER_DIR hidapi.h
+#	PATHS ../hidapi ../hidapi.git ${install_dir}
+#	PATH_SUFFIXES hidapi
+#	DOC "The location of HIDAPI's header file"
+#)
 
 if (BUILD_HIDAPI_SHARED)
 	find_library(HIDAPI_LIB NAMES hidapi-hidraw hidapi-libusb
@@ -46,13 +62,14 @@ if (BUILD_HIDAPI_SHARED)
 	set(HIDAPI_STATIC_OBJECT)
 	set(HIDAPI_LINK_LIBS ${HIDAPI_LIB})
 else()
-	find_library(HIDAPI_LIB NAMES libhidapi-hidraw.a libhidapi-libusb.a
-		PATHS ../hidapi ../hidapi.git
-		PATH_SUFFIXES linux/.libs libusb/.libs linux libusb mac
-		DOC "The location of the HIDAPI shared library file"
-	)
-	set(HIDAPI_STATIC_OBJECT)
-	set(HIDAPI_LINK_LIBS ${HIDAPI_LIB})
+#	find_library(HIDAPI_LIB NAMES libhidapi-hidraw.a libhidapi-libusb.a
+#		PATHS ../hidapi ../hidapi.git ${install_dir}
+#		PATH_SUFFIXES linux/.libs libusb/.libs linux libusb mac
+#		DOC "The location of the HIDAPI shared library file"
+#	)
+#	set(HIDAPI_STATIC_OBJECT)
+#	set(HIDAPI_LINK_LIBS ${HIDAPI_LIB})
+
 #	set(HIDAPI_LIB)
 #	find_file(HIDAPI_OBJECT NAMES hid.o hid-libusb.o
 #		PATHS ../hidapi ../hidapi.git
